@@ -16,4 +16,3 @@ class ImageProfilerApplication {
 fun main(args: Array<String>) {
     ImageProfilerApplication().run()
 }
-
