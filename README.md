@@ -15,8 +15,7 @@
 - Akka HTTP 10.1.10
 - Akka 2.6.0
 - Hibernate 5.4.8.Final
-- Spek 2.0.8
-
+- Junit 5
 
 <br>
 
