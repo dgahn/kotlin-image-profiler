@@ -1,9 +1,16 @@
 package io.github.dgahn.ip.fixture
 
+import com.google.common.io.Resources
+import java.io.File
+
 
 class RestFixture {
 
     companion object {
+
+        private const val fileName = "img/earth.jpg"
+        const val name = "earth.jpg"
+        val file = File(Resources.getResource(fileName).file)
         val histograms = longArrayOf(
             120, 582, 1635, 1796, 3161, 13531, 1549163, 11017, 5927, 5697,
             6110,

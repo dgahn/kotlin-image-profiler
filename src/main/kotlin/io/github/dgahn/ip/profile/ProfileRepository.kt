@@ -72,7 +72,7 @@ class ProfileRepository {
         tx.begin()
 
         try {
-            val result = em.createQuery("DELETE FROM Profile p").executeUpdate()
+            em.createQuery("DELETE FROM Profile p").executeUpdate()
         } catch (e: Exception) {
             tx.rollback()
         } finally {

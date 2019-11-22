@@ -4,7 +4,7 @@ import javax.persistence.Embeddable
 
 
 @Embeddable
-data class Metadata(
+data class MetaInfo(
     val name: String,
     val width: Int,
     val height: Int,

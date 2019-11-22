@@ -5,7 +5,7 @@ import javax.persistence.Embeddable
 
 @Embeddable
 data class Statistics(
-    val average: Double,
+    val max: Double,
     val min: Double,
-    val max: Double
+    val avg: Double
 )

@@ -1,7 +1,7 @@
 package io.github.dgahn.ip.profile
 
 import io.github.dgahn.ip.profile.embedded.Histogram
-import io.github.dgahn.ip.profile.embedded.Metadata
+import io.github.dgahn.ip.profile.embedded.MetaInfo
 import io.github.dgahn.ip.profile.embedded.Statistics
 import javax.persistence.Column
 import javax.persistence.ColumnResult
@@ -29,7 +29,7 @@ data class Profile(
     @Column(name = "profile_id")
     var id: Long? = null,
     @Embedded
-    val metadata: Metadata,
+    val metaInfo: MetaInfo,
     @Embedded
     val statistics: Statistics,
     @Embedded
