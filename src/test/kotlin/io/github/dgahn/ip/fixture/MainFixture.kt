@@ -14,7 +14,7 @@ class MainFixture {
 
     companion object {
 
-        val statistics = Statistics(255.0,0.0, 127.5)
+        val statistics = Statistics(255, 255, 255, 0, 0, 0, 46.0, 57.0, 51.0)
         val metaInfo = MetaInfo("earth.jpg", 1, 1, LocalDateTime.now().toString())
         private val metaInfo1 = MetaInfo("earth1.jpg", 1, 1, LocalDateTime.now().toString())
         private val metaInfo2 = MetaInfo("earth2.jpg", 1, 1, LocalDateTime.now().toString())

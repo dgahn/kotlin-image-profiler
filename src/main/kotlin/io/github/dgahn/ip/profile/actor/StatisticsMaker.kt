@@ -11,6 +11,9 @@ import io.github.dgahn.ip.profile.ProfileRegisterDto
 import io.github.dgahn.ip.profile.actor.StatisticsMaker.StatisticsCommand
 import io.github.dgahn.ip.profile.embedded.Statistics
 import io.github.dgahn.ip.util.ImageUtil
+import java.io.File
+import java.lang.Math.floor
+import javax.imageio.ImageIO
 
 
 class StatisticsMaker(context: ActorContext<StatisticsCommand>) : AbstractBehavior<StatisticsCommand>(context) {
@@ -19,7 +22,8 @@ class StatisticsMaker(context: ActorContext<StatisticsCommand>) : AbstractBehavi
 
     class StatisticsCompleted(val message: Statistics) : StatisticsCommand
 
-    class MakeStatistics(val registerDto: ProfileRegisterDto, val replyTo: ActorRef<StatisticsCompleted>) : StatisticsCommand
+    class MakeStatistics(val registerDto: ProfileRegisterDto, val replyTo: ActorRef<StatisticsCompleted>) :
+        StatisticsCommand
 
     companion object {
 
@@ -33,15 +37,8 @@ class StatisticsMaker(context: ActorContext<StatisticsCommand>) : AbstractBehavi
     }
 
     private fun onMakeStatistics(message: MakeStatistics): Behavior<StatisticsCommand> {
-        message.replyTo.tell(StatisticsCompleted(createStatistics(ImageUtil.getImageStatistics(message.registerDto.file)!!)))
+        message.replyTo.tell(StatisticsCompleted(ImageUtil.getStatistics(message.registerDto.file)))
         return Behaviors.same()
-    }
-
-    private fun createStatistics(statistics: ImageStatistics): Statistics {
-        val max = statistics.max
-        val min = statistics.min
-        val avg = (max + min) / 2
-        return Statistics(max, min, avg)
     }
 
     override fun createReceive(): Receive<StatisticsCommand> {
