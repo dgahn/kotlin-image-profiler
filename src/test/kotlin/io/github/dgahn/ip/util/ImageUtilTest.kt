@@ -10,7 +10,7 @@ object ImageUtilTest {
     @Test
     fun `getMetadataMap()을 호출하면 Image Width, Image Height, File Modified Date를 반환할 수 있다`() {
         // given
-        val file = RestFixture.file
+        val file = RestFixture.img
 
         // when
         val metadataMap: Map<String, String> = ImageUtil.getMetadataMap(file)!!
@@ -25,7 +25,7 @@ object ImageUtilTest {
     @Test
     fun `getImageStatistics()을 호출하면 Statistics(이미지 통계 값)을 반환할 수 있다`() {
         // given
-        val file = RestFixture.file
+        val file = RestFixture.img
 
         // when
         val imageStatistics = ImageUtil.getImageStatistics(file)!!

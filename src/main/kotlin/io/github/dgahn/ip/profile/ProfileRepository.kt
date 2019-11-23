@@ -20,7 +20,7 @@ class ProfileRepository {
             em.close()
         }
 
-        return profile
+        return if (profile!!.id != null) profile else null
     }
 
     fun findProfileSummaryList(): List<ProfileSummaryDto>? {
@@ -39,7 +39,7 @@ class ProfileRepository {
             em.close()
         }
 
-        return profiles
+        return if (profiles!!.isEmpty()) null else profiles
     }
 
     fun findById(id: Long): Profile? {

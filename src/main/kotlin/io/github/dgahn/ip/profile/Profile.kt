@@ -14,18 +14,21 @@ import javax.persistence.Id
 import javax.persistence.SqlResultSetMapping
 
 
-@SqlResultSetMapping(name = "ProfileSummaryMapping",
+@SqlResultSetMapping(
+    name = "ProfileSummaryMapping",
     classes = [
-        ConstructorResult(targetClass = ProfileSummaryDto::class, columns = [
-            ColumnResult(name = "id", type = Long::class),
-            ColumnResult(name = "name", type = String::class)
-        ])
+        ConstructorResult(
+            targetClass = ProfileSummaryDto::class, columns = [
+                ColumnResult(name = "id", type = Long::class),
+                ColumnResult(name = "name", type = String::class)
+            ]
+        )
     ]
 )
 @Entity
 data class Profile(
     @Id
-    @GeneratedValue(strategy = GenerationType.AUTO)
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "profile_id")
     var id: Long? = null,
     @Embedded
