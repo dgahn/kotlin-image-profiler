@@ -38,44 +38,6 @@ class ImageUtil {
             return ImageStatistics.getStatistics(ip)
         }
 
-        fun getStatistics(file: File): Statistics {
-            val read = ImageIO.read(file)
-
-            var rSum: Double = 0.0
-            var gSum: Double = 0.0
-            var bSum: Double = 0.0
-            val statistics = Statistics()
-            val width = read.width
-            val height = read.height
-
-            for (x in 0 until width) {
-                for (y in 0 until height) {
-                    val rgb = read.getRGB(x, y)
-                    val r = rgb.shr(16) and 0xFF
-                    val g = rgb.shr(8) and 0xFF
-                    val b = rgb and 0xFF
-
-                    statistics.rMax = r
-                    statistics.rMin = r
-                    statistics.gMax = g
-                    statistics.gMin = g
-                    statistics.bMax = b
-                    statistics.bMin = b
-
-                    rSum += r
-                    gSum += g
-                    bSum += b
-                }
-            }
-
-            val pixelCount = width * height
-            statistics.rAvg = kotlin.math.floor(rSum / pixelCount)
-            statistics.bAvg = kotlin.math.floor(bSum / pixelCount)
-            statistics.gAvg = kotlin.math.floor(gSum / pixelCount)
-
-            return statistics
-        }
-
     }
 
 }
