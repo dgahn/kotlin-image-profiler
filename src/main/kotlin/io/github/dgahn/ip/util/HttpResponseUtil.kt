@@ -19,7 +19,7 @@ class HttpResponseUtil {
         private val objectMapper: ObjectMapper = ObjectMapper()
 
         fun <T> responseOK(t: T): Route {
-            var entity: HttpEntity.Strict? =
+            val entity: HttpEntity.Strict? =
                 HttpEntities.create(ContentTypes.APPLICATION_JSON, objectMapper.writeValueAsString(t))
             val response = HttpResponse.create()
                 .withStatus(StatusCodes.OK)

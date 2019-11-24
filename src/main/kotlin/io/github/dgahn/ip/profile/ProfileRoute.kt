@@ -26,6 +26,7 @@ import io.github.dgahn.ip.profile.exception.FileReadFailException
 import io.github.dgahn.ip.profile.exception.ProfileNotFoundException
 import io.github.dgahn.ip.profile.exception.ProfileSaveFailException
 import io.github.dgahn.ip.util.HttpResponseUtil
+import mu.KotlinLogging
 import java.io.File
 import java.time.Duration
 import java.util.concurrent.CompletionStage
@@ -43,6 +44,8 @@ class ProfileRoute(
     private val askTimeout: Duration = Duration.ofSeconds(timeOutOfBoundsException)
     private val duration = scala.concurrent.duration.Duration.create(timeOutOfBoundsException, TimeUnit.SECONDS)
     private val scheduler: Scheduler = system.scheduler()
+
+    private val logger = KotlinLogging.logger {}
 
     fun createRoute(): Route {
         val defaultHandler = RejectionHandler.defaultHandler();
