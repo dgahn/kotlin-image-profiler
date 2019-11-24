@@ -2,6 +2,7 @@ plugins {
     java
     kotlin("jvm") version "1.3.60"
     id("org.jetbrains.kotlin.plugin.jpa") version "1.3.60"
+    application
 }
 
 group = "io.github.dgahn"
@@ -24,4 +25,8 @@ tasks.withType<Wrapper> {
 apply {
     from("gradle/module/main/all-deps.gradle.kts")
     from("gradle/module/test/all-deps.gradle.kts")
+}
+
+application {
+    mainClassName = "io.github.dgahn.ip.ImageProfilerApplicationKt"
 }
