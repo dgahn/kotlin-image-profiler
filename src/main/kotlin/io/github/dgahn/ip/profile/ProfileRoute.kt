@@ -26,6 +26,7 @@ import io.github.dgahn.ip.profile.exception.FileReadFailException
 import io.github.dgahn.ip.profile.exception.ProfileNotFoundException
 import io.github.dgahn.ip.profile.exception.ProfileSaveFailException
 import io.github.dgahn.ip.util.HttpResponseUtil
+import mu.KotlinLogging
 import java.io.File
 import java.time.Duration
 import java.util.concurrent.CompletionStage
@@ -44,6 +45,8 @@ class ProfileRoute(
     private val duration = scala.concurrent.duration.Duration.create(timeOutOfBoundsException, TimeUnit.SECONDS)
     private val scheduler: Scheduler = system.scheduler()
 
+    private val logger = KotlinLogging.logger {}
+
     fun createRoute(): Route {
         val defaultHandler = RejectionHandler.defaultHandler();
 
@@ -52,15 +55,18 @@ class ProfileRoute(
                 pathEnd {
                     concat(
                         get {
+                            logger.info { "Call [GET] {ip address}/profile Route" }
                             getSummaryProfiles()
                         },
                         post {
+                            logger.info { "Call [POST] {ip address}/profile Route" }
                             saveProfile()
                         }
                     )
                 },
                 path(PathMatchers.longSegment()) { id: Long ->
                     get {
+                        logger.info { "Call [GET] {ip address}/profile Route/{id}" }
                         getProfile(id)
                     }
                 }
@@ -71,6 +77,8 @@ class ProfileRoute(
     private fun getSummaryProfiles(): Route {
         val profiles = profileRepository.findProfileSummaryList()
             ?: throw ProfileNotFoundException("There is no subscribed profile.")
+
+        logger.info { "End [GET] {ip address}/profile Route" }
         return HttpResponseUtil.responseOK(profiles);
     }
 
@@ -82,6 +90,7 @@ class ProfileRoute(
                 ) { _, file ->
                     profileRepository.save(makeProfile(ProfileRegisterDto(file, name)))
                         ?: throw ProfileSaveFailException("Failed to save profile.")
+                    logger.info { "End [POST] {ip address}/profile Route" }
                     HttpResponseUtil.responseCreated()
                 }
             }
@@ -92,6 +101,7 @@ class ProfileRoute(
         val profile =
             profileRepository.findById(id) ?: throw ProfileNotFoundException("The Profile With $id doesn't exist.")
 
+        logger.info { "End [GET] {ip address}/profile Route/{id}" }
         return HttpResponseUtil.responseOK(profile)
     }
 
